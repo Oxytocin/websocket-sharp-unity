@@ -48,12 +48,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
-    <GenerateDocumentation>True</GenerateDocumentation>
     <CustomCommands>
       <CustomCommands>
         <Command type="AfterBuild" command="doc/doc.sh" workingdir="doc/" externalConsole="True" />
       </CustomCommands>
     </CustomCommands>
+    <DocumentationFile>bin\Release_Ubuntu\websocket-sharp.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -130,6 +130,7 @@
     <Compile Include="Net\HttpDigestIdentity.cs" />
     <Compile Include="Net\NetworkCredential.cs" />
     <Compile Include="Server\WebSocketServiceManager.cs" />
+    <Compile Include="IWSLogger.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

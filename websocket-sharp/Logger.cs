@@ -58,6 +58,14 @@ namespace WebSocketSharp
     private Action<LogData, string> _output;
     private object                  _sync;
 
+		private static IWSLogger _defaultLogger = null;
+
+		public static IWSLogger DefaultLogger {
+			set {
+				_defaultLogger = value;
+			}
+		}
+
     #endregion
 
     #region Public Constructors
@@ -188,10 +196,35 @@ namespace WebSocketSharp
 
     private static void defaultOutput (LogData data, string path)
     {
+			/*
       var log = data.ToString ();
       Console.WriteLine (log);
       if (path != null && path.Length > 0)
         writeToFile (path, log);
+        */
+			if (_defaultLogger != null) {
+				string txt = data.ToString ();
+				switch (data.Level) {
+				case LogLevel.Debug:
+					_defaultLogger.Debug (txt);
+					break;
+				case LogLevel.Error:
+					_defaultLogger.Error (txt);
+					break;
+				case LogLevel.Fatal:
+					_defaultLogger.Fatal (txt);
+					break;
+				case LogLevel.Info:
+					_defaultLogger.Info (txt);
+					break;
+				case LogLevel.Trace:
+					_defaultLogger.Trace (txt);
+					break;
+				case LogLevel.Warn:
+					_defaultLogger.Warn (txt);
+					break;
+				}
+			}
     }
 
     private void output (string message, LogLevel level)

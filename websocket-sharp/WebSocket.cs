@@ -94,6 +94,15 @@ namespace WebSocketSharp
         private TcpClient               _tcpClient;
         private Uri                     _uri;
 
+		private static LogLevel _defaultLogLevel = LogLevel.Error;
+		public static LogLevel DefaultLogLevel
+		{
+			set
+			{ 
+				_defaultLogLevel = value;
+			}
+		}
+
     #endregion
 
     #region Internal Const Fields
@@ -181,12 +190,12 @@ namespace WebSocketSharp
 
             _base64Key = CreateBase64Key ();
             _client = true;
-            _logger = new Logger ();
+			_logger = new Logger (_defaultLogLevel);
+			_logger.Trace ("Web Socket for url '" + url + "' is created");
             _secure = _uri.Scheme == "wss";
 
             init ();
         }
-
     #endregion
 
     #region Internal Properties
